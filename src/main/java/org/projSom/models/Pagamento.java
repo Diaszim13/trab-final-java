@@ -16,7 +16,10 @@ public class Pagamento {
     private String tipo;
 
     @Column(nullable = false,name = "valor", length = 100)
-    private String valor;
+    private Double valor;
+
+    @Column(nullable = false, name = "quantidade")
+    private Integer quantidade;
 
     @Column(nullable = false,name = "aprovado", length = 100)
     private boolean aprovado;
@@ -36,5 +39,18 @@ public class Pagamento {
     public void prePersist() {
         setDataPagamento(LocalDate.now());
     }
+
+    public double calculaValorTotal() {
+        return this.quantidade * this.valor;
+    }
+
+    public void adicionaQuantidade(int quantidade) {
+        this.quantidade += quantidade;
+    }
+
+    public void removeQuantidade(int quantidade) {
+        this.quantidade -= quantidade;
+    }
+
 
 }
